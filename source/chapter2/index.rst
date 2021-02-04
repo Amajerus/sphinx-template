@@ -1,9 +1,11 @@
-Chapter 2
-=========
+Java to SQL Server
+==================
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Code used to link Java to SqlServer
+Gibberish ``JdbcMsSql``
+
+.. code-block:: java
+
+    System.out.println("Hello World");
+
+.. literalinclude:: JdbcMsSql.java
