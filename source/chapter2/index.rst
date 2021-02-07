@@ -1,11 +1,31 @@
-Java to SQL Server
-==================
+Add Maven to IntelliJ
+=====================
+To help build the project we used Maven.  To get more info click on
+`Maven <https://maven.apache.org/what-is-maven.html>`_.
 
-Code used to link Java to SqlServer
-Gibberish ``JdbcMsSql``
+`Click here <https://maven.apache.org/download.cgi>`_ to download Maven, if needed.
 
-.. code-block:: java
+To add Maven to IntelliJ:
+    1.  Right click on your project folder in IntelliJ.
+    2.  Click New; Module
 
-    System.out.println("Hello World");
+        .. image:: NewModule.JPG
 
-.. literalinclude:: JdbcMsSql.java
+    #.  Click Next
+    #.  Give your module a name, we chose **maven**
+
+        .. image:: NameModule.JPG
+
+    #.  Click Finish
+
+Once the Maven Module is created a pom.xml file will appear.
+
+.. literalinclude:: pom.xml(Maven)
+
+This will need to be updated with:
+
+.. image:: dependancy.jpg
+
+Below is the updated pom.xml file.
+
+.. literalinclude:: Updatedpom.xml
