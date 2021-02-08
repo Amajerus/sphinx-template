@@ -20,12 +20,14 @@ To add Maven to IntelliJ:
 
 Once the Maven Module is created a pom.xml file will appear.
 
-.. literalinclude:: pom.xml(Maven)
+.. literalinclude:: pom.xml
 
 This will need to be updated with:
 
-.. image:: dependancy.jpg
+.. image:: dependancy.JPG
 
 Below is the updated pom.xml file.
 
 .. literalinclude:: Updatedpom.xml
+
+.. liter
