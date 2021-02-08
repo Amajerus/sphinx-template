@@ -21,6 +21,7 @@ To add Maven to IntelliJ:
 Once the Maven Module is created a pom.xml file will appear.
 
 .. literalinclude:: pom.xml
+   :language: xml
 
 This will need to be updated with:
 
@@ -29,5 +30,4 @@ This will need to be updated with:
 Below is the updated pom.xml file.
 
 .. literalinclude:: Updatedpom.xml
-
-.. liter
+   :language: xml
