@@ -3,9 +3,6 @@ Connect Java to SQL Server
 
 The code below is just a demonstration of one way to connect to SQL Server.
 
-.. literalinclude:: JVtoSQL.java
-   :language: java
-
 .. code-block:: java
 
     package net.codejava.jdbc;
