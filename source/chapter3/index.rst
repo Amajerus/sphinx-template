@@ -17,7 +17,7 @@ The code below is just a demonstration of one way to connect to SQL Server.
             Connection conn = null;
 
             try {
-                String dbURL = "jdbc:sqlserver://localhost;databaseName=main; integratedSecurity=true";
+                String dbURL = "jdbc:sqlserver://localhost; integratedSecurity=true";
                 conn = DriverManager.getConnection(dbURL);
                 if (conn != null) {
                     DatabaseMetaData dm = (DatabaseMetaData) conn.getMetaData();
@@ -42,6 +42,8 @@ The code below is just a demonstration of one way to connect to SQL Server.
     }
 
 
+The results should show something similar to this
 
+.. image:: Results.JPG
 
 
