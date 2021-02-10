@@ -20,7 +20,7 @@ To add Maven to IntelliJ:
 
 Once the Maven Module is created a pom.xml file will appear.
 
-.. code-block::
+.. code-block:: xml
 
     <?xml version="1.0" encoding="UTF-8"?>
     <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -45,7 +45,7 @@ This will need to be updated with:
 
 Below is the updated pom.xml file.
 
-.. code-block::
+.. code-block:: xml
 
     <?xml version="1.0" encoding="UTF-8"?>
     <project xmlns="http://maven.apache.org/POM/4.0.0"
