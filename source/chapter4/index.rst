@@ -9,7 +9,7 @@ Some Sample Queries:
             :linenos:
 
             package net.codejava.jdbc;
-            import java.sql.*
+            import java.sql.*;
             public class SimpleQuery {
                 public static void main(String[] args) {
                     Connection conn = null;
