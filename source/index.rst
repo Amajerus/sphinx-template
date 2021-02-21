@@ -1,10 +1,8 @@
 Querying SQL Server with Java
 =============================
 
-Fill in  this text with your own intro text
-
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 5
    :caption: Contents:
 
    chapter1/index

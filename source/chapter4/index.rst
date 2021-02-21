@@ -132,8 +132,6 @@ Operator Query
                 }
             }
 
-
-
 Simple Join
 -----------
 
@@ -182,5 +180,5 @@ Simple Join
     ``"Select s.security_symbol, s.Date, s.High, n.Country, n.Volume From dbo.stockprices as s," +``
     ``" dbo.nasdaq as n Where s.security_symbol = n.symbol ";``
 
-    This is perfectly fine as the more complex the SQL statements get the longer the ``sql`` statement
-    will be.
+    This is perfectly fine as the more complex the SQL statements get, the longer the ``sql`` statement
+    will need to be.
