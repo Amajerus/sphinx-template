@@ -1,3 +1,4 @@
+.. _manage-connections:
 Prepared Statements
 ===================
 
