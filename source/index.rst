@@ -11,5 +11,6 @@ Fill in  this text with your own intro text
    chapter2/index
    chapter3/index
    chapter4/index
+   chapter5/index
 
 

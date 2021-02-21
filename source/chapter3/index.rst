@@ -18,12 +18,16 @@ Where:
     - If you are using SQL Server authentication then we will have to specify your SQL Server username and password.
         - For example:  ``jdbc:sqlserver://localhost;user=SQLUserName;password=SQLPassword;``
 
+Examples
+--------
 Here is an example using the elements:
     ``jdbc:sqlserver://localhost:1433;databaseName=testdb;user=SQLUserName;password=SQLPassword;``
 
 For our example to test the connection  to SQL Server we used:
     ``jdbc:sqlserver://localhost; integratedSecurity=true``
 
+Code
+----
 The code below demonstrates a simplified way to verify your connection to SQL Server.
 
     .. code-block:: java

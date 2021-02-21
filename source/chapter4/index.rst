@@ -2,10 +2,14 @@ Querying SQL Server with JAVA
 =============================
 
 When querying SQL Sever with JAVA you will want to start with the this basic code.
+
     .. code-block:: Java
+       :emphasize-lines: 3,4,8,9,10,11,13,20
        :linenos:
+
        package net.codejava.jdbc;
-       //You can import individual elements of ``java.sql`` or as we did use ``java.sql.*`` to
+
+       //You can import individual elements of java.sql or as we did use java.sql.* to
        //do a mass import.
 
         import java.sql.*;
@@ -15,7 +19,8 @@ When querying SQL Sever with JAVA you will want to start with the this basic cod
        //import java.sql.DriverManager;
        //import java.sql.SQLException;
 
-       public class //Insert your class name here {
+       //Change the class name below to fit your needs
+       public class Sample {
            public static void main(String[] args) {
                 Connection conn = null;
                 PreparedStatement stmt = null;
@@ -29,15 +34,19 @@ When querying SQL Sever with JAVA you will want to start with the this basic cod
             }
         }
 
+
 Simple Queries
 --------------
     1.  This is a basic query only returns one column.
 
         .. code-block:: Java
-            :linenos:
-            :emphasize-lines: 10
+           :emphasize-lines: 14
+           :linenos:
+
             package net.codejava.jdbc;
+
             import java.sql.*;
+
             public class SimpleQuery {
                 public static void main(String[] args) {
                     Connection conn = null;
@@ -63,8 +72,8 @@ Simple Queries
     2.  To pull data from multiple columns update the try statement above:
 
         .. code-block:: Java
-            :linenos:
             :emphasize-lines: 5,8,9,10
+            :linenos:
 
             try {
             String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA; integratedSecurity=true";
@@ -80,7 +89,8 @@ Simple Queries
                 System.out.print(dt + " ");
                 System.out.println(hgh);
             }
-  .. note::
+
+.. note::
 
     Note  ``String sql = "Select security_symbol, Date, High  from dbo.StockPrices "``
     has 3 columns listed which will require a separate print statement.
@@ -90,11 +100,13 @@ Operator Query
 --------------
     Here we are showing a very basic example of how to use an operator in your query
         .. code-block:: Java
+            :emphasize-lines: 14
             :linenos:
-            :emphasize-lines: 12
 
             package net.codejava.jdbc;
+
             import java.sql.*;
+
             public class OperatorQuery {
                 public static void main(String[] args) {
                     Connection conn = null;
@@ -124,10 +136,13 @@ Operator Query
 
 Simple Join
 -----------
+
     This will illustrate a very simple inner join.
-        .. code-block:: Java
+
+         .. code-block:: Java
+            :emphasize-lines: 12,13
             :linenos:
-            :emphasize-lines: 12
+
             package net.codejava.jdbc;
 
             import java.sql.*;
@@ -153,10 +168,19 @@ Simple Join
                             System.out.print(hgh + " ");
                             System.out.print(coun + " ");
                             System.out.println(vol);
-
                         }
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                     }
                 }
             }
+
+.. note::
+
+    Notice we concatenated the ``sql`` statement.
+
+    ``"Select s.security_symbol, s.Date, s.High, n.Country, n.Volume From dbo.stockprices as s," +``
+    ``" dbo.nasdaq as n Where s.security_symbol = n.symbol ";``
+
+    This is perfectly fine as the more complex the SQL statements get the longer the ``sql`` statement
+    will be.
