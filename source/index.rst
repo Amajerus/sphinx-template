@@ -1,5 +1,5 @@
-Sample Sphinx Project
-=====================
+Querying SQL Server with Java
+=============================
 
 Fill in  this text with your own intro text
 
