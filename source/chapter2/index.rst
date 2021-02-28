@@ -46,6 +46,8 @@ This will need to be updated with:
 Below is the updated pom.xml file.
 
 .. code-block:: xml
+    :linenos:
+    :emphasize-lines: 15-21
 
     <?xml version="1.0" encoding="UTF-8"?>
     <project xmlns="http://maven.apache.org/POM/4.0.0"
