@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'Sample Project'
+project = 'Java To SQL Server'
 copyright = '2021'
 author = 'Samantha Simpson'
 

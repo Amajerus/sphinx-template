@@ -32,10 +32,11 @@ The code below demonstrates a simplified way to verify your connection to SQL Se
 
     .. code-block:: java
         :linenos:
-        :emphasize-lines: 2, 13, 17, 18, 26, 27
+        :emphasize-lines: 2-3, 14, 18-19 , 21-22, 30-31
 
         package net.codejava.jdbc;
-        //Here we are importing the different ``java.sql`` elements you can just as easily use ``import java.sql.*``
+        //Here we are importing the different ``java.sql`` elements you can
+        //just as easily use ``import java.sql.*``
         import java.sql.Connection;
         import java.sql.DatabaseMetaData;
         import java.sql.DriverManager;
@@ -50,10 +51,11 @@ The code below demonstrates a simplified way to verify your connection to SQL Se
                     String dbURL = "jdbc:sqlserver://localhost; integratedSecurity=true";
                     conn = DriverManager.getConnection(dbURL);
                     if (conn != null) {
-                        //We are calling the ``DatabaseMetaData`` to get the meta data from SQL Server.
+                        //We are calling the ``DatabaseMetaData`` to get the meta data
+                        //from SQL Server.
                         DatabaseMetaData dm = (DatabaseMetaData) conn.getMetaData();
-                        //Here we are just asking it to print some SQL Server information just to verify that
-                        //a connection was made.
+                        //Here we are just asking it to print some SQL Server information
+                        //just to verify that a connection was made.
                         System.out.println("Driver name: " + dm.getDriverName());
                         System.out.println("Driver version: " + dm.getDriverVersion());
                         System.out.println("Product name: " + dm.getDatabaseProductName());

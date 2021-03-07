@@ -40,7 +40,7 @@ Simple Queries
     1.  This is a basic query only returns one column.
 
         .. code-block:: Java
-           :emphasize-lines: 14
+           :emphasize-lines: 15
            :linenos:
 
             package net.codejava.jdbc;
@@ -53,7 +53,8 @@ Simple Queries
                     PreparedStatement stmt = null;
                     ResultSet rs = null;
                     try {
-                        String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA; integratedSecurity=true";
+                        String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA; "+
+                                       "integratedSecurity=true";
                         conn = DriverManager.getConnection(dbURL);
                         stmt = conn.createStatement();
                         String sql = "Select security_symbol from dbo.StockPrices "
@@ -72,11 +73,12 @@ Simple Queries
     2.  To pull data from multiple columns update the try statement above:
 
         .. code-block:: Java
-            :emphasize-lines: 5,8,9,10
+            :emphasize-lines: 6,9-11
             :linenos:
 
             try {
-            String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA; integratedSecurity=true";
+            String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA; "
+                           "integratedSecurity=true";
             conn = DriverManager.getConnection(dbURL);
             stmt = conn.createStatement();
             String sql = "Select security_symbol, Date, High  from dbo.StockPrices "
@@ -100,7 +102,7 @@ Operator Query
 --------------
     Here we are showing a very basic example of how to use an operator in your query
         .. code-block:: Java
-            :emphasize-lines: 14
+            :emphasize-lines: 14-15
             :linenos:
 
             package net.codejava.jdbc;
@@ -113,10 +115,12 @@ Operator Query
                     PreparedStatement stmt = null;
                     ResultSet rs = null;
                     try {
-                        String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA; integratedSecurity=true";
+                        String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA; "+
+                                       "integratedSecurity=true";
                         conn = DriverManager.getConnection(dbURL);
                         stmt = conn.createStatement();
-                        String sql = "Select security_symbol, Date, High  From dbo.stockprices Where High > 150 ";
+                        String sql = "Select security_symbol, Date, High  From dbo.stockprices " +
+                                     "Where High > 150 ";
                         rs = stmt.executeQuery(sql);
                         while(rs.next()) {
                             String sym = rs.getString("security_symbol");
@@ -138,7 +142,7 @@ Simple Join
     This will illustrate a very simple inner join.
 
          .. code-block:: Java
-            :emphasize-lines: 12,13
+            :emphasize-lines: 12-14
             :linenos:
 
             package net.codejava.jdbc;
@@ -149,11 +153,13 @@ Simple Join
                 public static void main(String[] args) {
                     Connection conn = null;
                     try {
-                        String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA; integratedSecurity=true";
+                        String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA; " +
+                                       "integratedSecurity=true";
                         conn = DriverManager.getConnection(dbURL);
                         Statement stmt = conn.createStatement();
-                        String sql = "Select s.security_symbol, s.Date, s.High, n.Country, n.Volume From dbo.stockprices as s," +
-                                " dbo.nasdaq as n Where s.security_symbol = n.symbol ";
+                        String sql = "Select s.security_symbol, s.Date, s.High, n.Country, " +
+                                     "n.Volume From dbo.stockprices as s," +
+                                     " dbo.nasdaq as n Where s.security_symbol = n.symbol ";
                         ResultSet rs = stmt.executeQuery(sql);
                         while(rs.next()) {
                             String sym = rs.getString("security_symbol");

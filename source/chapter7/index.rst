@@ -1,13 +1,57 @@
 Creating A Table and Inserting Data
 ===================================
 
-First lets create a new table in our data base:
+First lets check if the table exists:
+
+Check If Table Exists
+---------------------
+
+This is a simple user input, in which you can input the table name to see if it exists
+in the database.
+
+.. code-block::
+    :linenos:
+
+    package net.codejava.jdbc;
+
+    import java.sql.*;
+    import java.util.Scanner;
+
+    public class TableExists {
+        public static void main(String[] args) {
+            Connection conn = null;
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            DatabaseMetaData meta = null;
+            try {
+                Scanner console = new Scanner(System.in);
+                System.out.print("Enter Table Name ");
+                String tablename = console.next();
+                String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA;" +
+                        "integratedSecurity=true";
+                conn = DriverManager.getConnection(dbURL);
+                meta = conn.getMetaData();
+                rs = meta.getTables(null, null,tablename , null);
+               if (rs.next()){
+                    System.out.println("table found");
+                } else {
+                    System.out.println("doesnt exist");
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+
+
+Now lets create a new table in our data base:
 
 Create Table
 ------------
 
 .. code-block:: Java
-    :emphasize-lines: 14-20
+    :emphasize-lines: 15 - 19
     :linenos:
 
     package net.codejava.jdbc;
@@ -20,21 +64,34 @@ Create Table
             Statement stmt = null;
             ResultSet rs = null;
             try {
-                String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA; integratedSecurity=true";
+                String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA; " +
+                               "integratedSecurity=true";
                 conn = DriverManager.getConnection(dbURL);
                 stmt = conn.createStatement();
-                //Here we are creating a String called sql and using the Create Table Method to create an new table
-                //called Company info with just some random company information.  There is no data on this table yet,
+                //Here we are creating a String called sql and using the
+                //Create Table Method to create an new table
+                //called Company info with just some random
+                //company information.  There is no data on this table yet,
                 //just the column names.
-                String sql = "Create Table CompanyInfo ( symbol nvarchar(255) not NULL, companyname nvarchar(255)," +
-                             "address nvarchar(255), city nvarchar(255), country nvarchar(255), state nvarchar(2)," +
-                             "zip int, internationalcode int, areacode int, phonenumber int, PRIMARY KEY(symbol))";
+                String sql = "Create Table CompanyInfo " +
+                             "( symbol nvarchar(255) not NULL, " +
+                             "companyname nvarchar(255) not Null, " +
+                             "address nvarchar(255), " +
+                             "city nvarchar(255), " +
+                             "country nvarchar(255), " +
+                             "state nvarchar(2), " +
+                             "zip int, " +
+                             "internationalcode int, " +
+                             "areacode int, " +
+                             "phonenumber int, " +
+                             "PRIMARY KEY(symbol))";
                 stmt.executeUpdate(sql);
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         }
     }
+
 
 .. note::
 
@@ -44,13 +101,15 @@ Create Table
 
 
 Insert Data
-~~~~~~~~~~~
+-----------
+
+Single Row Insert
+~~~~~~~~~~~~~~~~~
 
 The code below inserts data into the table we just created.  *This is just an example and the data being inserted
 is not accurate*
 
 .. code-block:: java
-    :emphasize-lines: 14 - 21
     :linenos:
 
     package net.codejava.jdbc;
@@ -60,26 +119,115 @@ is not accurate*
     public class InsertData {
         public static void main(String[] args) {
             Connection conn = null;
-            Statement stmt = null;
+            PreparedStatement stmt = null;
             ResultSet rs = null;
             try {
-                String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA; integratedSecurity=true";
+                String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA;" +
+                               "integratedSecurity=true";
                 conn = DriverManager.getConnection(dbURL);
-                stmt = conn.createStatement();
-                String sql = "INSERT INTO CompanyInfo ( symbol, companyname, address, city, country, state, zip," +
-                             "internationalcode, areacode, phonenumber)" + "Values ('goog', 'Google', '1234 Google Way',"+ "" +
-                             "'Googleville', 'USA', 'CA',95124, 01, 912, 6945634)";
-                stmt.execute(sql);
-                sql = "INSERT INTO CompanyInfo ( symbol, companyname, address, city, country, state, zip," +
-                      "internationalcode, areacode, phonenumber)" + "Values ('amzn', 'Amazon', '48951 Bezos Blvd'," +
-                      "'Amazonville', 'USA', 'CA', 90210, 01, 414, 4521381)";
-                stmt.execute(sql);
+                String sql = "INSERT INTO CompanyInfo Values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+                stmt = conn.prepareStatement(sql);
+                stmt.setString(1,"goog");
+                stmt.setString(2, "Google");
+                stmt.setString(3,"1234 Google Way");
+                stmt.setString(4,"GoogleVille");
+                stmt.setString(5,"USA");
+                stmt.setString(6, "CA");
+                stmt.setInt(7,95124);
+                stmt.setInt(8,01);
+                stmt.setInt(9,912);
+                stmt.setInt(10,6945634);
+                stmt.executeUpdate();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         }
     }
 
+
 .. note::
 
-    Using java to insert requires multiple ``INSERT`` and ``Execute`` statements as shown above.
+    Using java to insert could require multiple ``INSERT`` and ``Execute`` statements.
+
+
+Bulk insert
+~~~~~~~~~~~
+
+Inserting one line at time can be useful, in certain circumstance, but what if you need to insert
+a whole bunch of data. One line at a time is not very efficient.  We will want to use a **BULK INSERT**.
+
+To import data from a data file, the file must meet the following basic requirements:
+            * The data must be in row and column format.  **The structure of the data file does**
+              **not need to be identical to the structure of the SQL Server table because columns**
+              **can be skipped or reordered during the bulk-import process.**
+            * The data in the data file must be in a supported format such as character or native format.
+            * The data can be in character or native binary format including Unicode.
+            * To import data by using a bcp command, ``BULK INSERT`` statement, or ``INSERT``
+              ``... SELECT * FROM OPENROWSET(BULK...)`` statement, the destination table must already exist.
+            * **Each field in the data file must be compatible with the corresponding column in the target table.**
+              For example, an ``int`` field cannot be loaded into a ``datetime`` column.
+            * To import data from data files with fixed-length or fixed-width fields, use a format file.
+
+For our example we will be using an *Excel* with a ``.csv`` extension.
+
+.. important::
+   Starting with SQL Server 2017, a CSV file can be used as the data file for a bulk import of
+   data into SQL Server. Note that the field terminator of a CSV file does not have to be a comma.
+   To be usable as a data file for bulk import, a CSV file must comply with the following restrictions:
+          * Data fields never contain the field terminator.
+          * Either none or all of the values in a data field are enclosed in quotation marks ("").
+
+Here is an example:
+
+.. code-block::
+    :emphasize-lines: 15-16,22-23,25-26,28-30,32-34,36-38
+    :linenos:
+
+    package net.codejava.jdbc;
+
+    import java.sql.*;
+
+    public class BulkInsert {
+        public static void main(String[] args) {
+            Connection conn = null;
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            try {
+                String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA;" +
+                               "integratedSecurity=true";
+                conn = DriverManager.getConnection(dbURL);
+                String sql = "DECLARE @filename as NVARCHAR(4000)" +
+                             // When setting the file name you want to include the entire
+                             // address to the file
+                             " SET @filename = 'location/of/file/in/storage/ " +
+                             "filename.csv'" +
+                             " DECLARE @sql NVARCHAR(4000) = " +
+                             " 'BULK INSERT (Table Name) FROM ''' + @filename + ''' " +
+                             " WITH (" +
+                                    // Using the DATAFILETYPE = ''char'', specifies that
+                                    // the data fields be loaded as character data.
+                                    "DATAFILETYPE = ''char'' " +
+                                    // We are setting the FIRST copy row to 2 since we do
+                                    // not need the header row as that is already in the table
+                                    ", FIRSTROW=2 " +
+                                    // FIELDQUOTE Specifies a character that will be used as
+                                    // the quote character in the CSV file. If not specified,
+                                    // the quote character (") will be used.
+                                    ", FIELDQUOTE = ''\'' " +
+                                    // FIELDTERMINATOR = Specifies the field terminator to be
+                                    // used for character and Unicode character data files. We
+                                    // are using a comma (,) as the field terminator.
+                                    ", FIELDTERMINATOR = '','' " +
+                                    // ROWTERMINATOR Specifies the field terminator to be used
+                                    // for character and Unicode character data files. We are
+                                    // using the new line character to specify the row terminator.
+                                    ", ROWTERMINATOR = ''\n'' )';" +
+                             "EXEC(@sql)";
+                stmt = conn.prepareStatement(sql);
+                stmt.execute();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+

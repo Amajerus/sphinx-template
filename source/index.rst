@@ -4,7 +4,7 @@ Querying SQL Server with Java
 This will walk you through one way to query SQL Server with JAVA using IntellJ
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 1
    :caption: Contents:
 
    chapter1/index

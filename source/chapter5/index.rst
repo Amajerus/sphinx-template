@@ -26,7 +26,7 @@ Defining Parameters
 Code
 ----
     .. code-block:: Java
-       :emphasize-lines: 13,14,16,17,18,19
+       :emphasize-lines: 14-17,19-21,26
        :linenos:
 
         package net.codejava.jdbc;
@@ -39,10 +39,13 @@ Code
                 PreparedStatement stmt = null;
                 ResultSet rs = null;
                 try {
-                    String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA; integratedSecurity=true";
+                    String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA;" +
+                                    "integratedSecurity=true";
                     conn = DriverManager.getConnection(dbURL);
                     // We added a parameter here to help prevent SQL Injection
-                    String sql = "Select security_symbol, Date, High  From dbo.stockprices Where security_symbol = ? and Year(Date) >= ?";
+                    String sql = "Select security_symbol, Date, High " +
+                                  "From dbo.stockprices Where security_symbol = ? " +
+                                  "and Year(Date) >= ?;"
                     stmt = conn.prepareStatement(sql);
                     // If you had parameters, they would be set wit something like:
                     stmt.setString(1, "FB");
