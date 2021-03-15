@@ -3,9 +3,11 @@ Data Types
 
 There are numerous **Data Types** in SQL and Java.  Below are just some of the common ones used:
 
+SQL Data Types
+--------------
 
 SQL Server String Data Types
-----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     +---------------+---------------------------------+----------------------------+
     |   Data Type   |         Description             |         Max Size           |
@@ -23,7 +25,7 @@ SQL Server String Data Types
     +---------------+---------------------------------+----------------------------+
 
 SQL Server Numeric Data Types
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     +---------------+--------------------------------------------------------------+
     |   Data Type   |         Description                                          |
@@ -48,7 +50,7 @@ SQL Server Numeric Data Types
 
 
 SQL Server Date and Time Data Types
------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     +----------------+---------------------------------------------------------------+
     |   Data Type    |         Description                                           |
@@ -73,7 +75,7 @@ The above tables as well as more information can be found at
 `w3schools.com <https://www.w3schools.com/sql/sql_datatypes.asp>`_.
 
 SQL Server Troublesome Data Type
---------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ``DATETIME`` seems to be one of the most troublesome of the data types in SQL SERVER.  ``DATETIME`` uses 8 bytes with
 an accuracy of ``3 milliseconds``, as  long as the milliseconds end in 0, 3, or 7.  This can cause inaccurate
 values from rounding errors.  Data corruption can be an issue if using ``DATETIMEFROMPART()``.
@@ -131,7 +133,7 @@ There are two main sets of data types in Java, ``Primitive`` and ``Non-Primitive
 ``Non-Primitive`` are ``Strings``, ``Arrays``, and ``Classes``
 
 Primitive
-~~~~~~~~~
+^^^^^^^^^
     +------------------+---------------------------------------------------------------+
     |   Data Type      |         Description                                           |
     |                  |                                                               |

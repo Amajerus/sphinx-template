@@ -35,9 +35,32 @@ Here is a simple example:
         }
     }
 
-Output:
+.. code-block:: text
+    :caption: Output
 
-.. image::  Error1.JPG
+    "C:\Program Files (x86)\Java\jdk1.8.0_281\bin\java.exe"
+    com.microsoft.sqlserver.jdbc.SQLServerException: Invalid column name 'securty_symbol'.
+    at com.microsoft.sqlserver.jdbc.SQLServerException.
+       makeFromDatabaseError(SQLServerException.java:262)
+    at com.microsoft.sqlserver.jdbc.SQLServerStatement.
+       getNextResult(SQLServerStatement.java:1632)
+    at com.microsoft.sqlserver.jdbc.SQLServerStatement.
+       doExecuteStatement(SQLServerStatement.java:872)
+    at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.
+       doExecute(SQLServerStatement.java:767)
+    at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7418)
+    at com.microsoft.sqlserver.jdbc.SQLServerConnection.
+       executeCommand(SQLServerConnection.java:3274)
+    at com.microsoft.sqlserver.jdbc.SQLServerStatement.
+       executeCommand(SQLServerStatement.java:247)
+    at com.microsoft.sqlserver.jdbc.SQLServerStatement.
+       executeStatement(SQLServerStatement.java:222)
+    at com.microsoft.sqlserver.jdbc.SQLServerStatement.
+       executeQuery(SQLServerStatement.java:692)
+    at net.codejava.jdbc.SimpleQuery.main(SimpleQuery.java:12)
+
+
+
 
 This is a simple example where the column name was mistyped in the select statement.  As you can see on the second line
 of the output it calls out ``Invalid column name 'securty_symbol'``.
@@ -46,7 +69,18 @@ of the output it calls out ``Invalid column name 'securty_symbol'``.
 Error With Rollback
 -------------------
 
-We are doing a simple insert using *Prepared Statements*, *Try Catch*, and *Rollback*
+We are doing a simple insert using *Prepared Statements*, *Try Catch*, and *Rollback*.   What is *Rollback*?
+*Rollback*: rolls back an explicit or implicit transaction to the beginning of the transaction,
+or to a savepoint inside the transaction. You can use *ROLLBACK TRANSACTION* to erase all data modifications
+made from the start of the transaction or to a savepoint. It also frees resources held by the transaction.
+
+.. note::
+    A *ROLLBACK TRANSACTION* statement does not produce any messages. If warnings are
+    needed, use the ``RAISERROR`` or ``PRINT`` statements with ``RAISERROR`` being the
+    preferred statement for indicating errors.
+
+    For a more in depth explanation please click `Rollback <https://docs.microsoft.com/en-us/sql/t-sql/language-elements/rollback-transaction-transact-sql?view=sql-server-ver15>`_
+
 
 .. code-block::
     :emphasize-lines: 14-15, 31-33

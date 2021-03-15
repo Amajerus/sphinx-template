@@ -15,5 +15,6 @@ This will walk you through one way to query SQL Server with JAVA using IntellJ
    chapter6/index
    chapter7/index
    chapter8/index
+   chapter9/index
 
 

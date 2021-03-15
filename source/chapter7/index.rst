@@ -1,7 +1,13 @@
-Creating A Table and Inserting Data
-===================================
 
-First lets check if the table exists:
+.. _manage-connections:
+
+How To Create A Table and Insert Data
+=====================================
+
+First we should check to see if the table exists.
+We want to make sure that the table does not exist, that way we can avoid errors and/or duplicate work.
+
+Click :ref:`create table` to skip and go to creating a table.
 
 Check If Table Exists
 ---------------------
@@ -9,7 +15,7 @@ Check If Table Exists
 This is a simple user input, in which you can input the table name to see if it exists
 in the database.
 
-.. code-block::
+.. code-block:: java
     :linenos:
 
     package net.codejava.jdbc;
@@ -28,17 +34,22 @@ in the database.
                 System.out.print("Enter Table Name ");
                 String tablename = console.next();
                 String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA;" +
-                        "integratedSecurity=true";
+                               "integratedSecurity=true";
                 conn = DriverManager.getConnection(dbURL);
                 meta = conn.getMetaData();
-                rs = meta.getTables(null, null,tablename , null);
-               if (rs.next()){
-                    System.out.println("table found");
-                } else {
-                    System.out.println("doesnt exist");
+                String [] types = {"TABLE"};
+                rs = meta.getTables(null, null, "%", types);
+                while (rs.next()){
+                   if (rs.getString("TABLE_NAME").toLowerCase().equals(tablename.toLowerCase())){
+                       System.out.println("You inputted:  " + tablename);
+                       System.out.println("Table found:  "+ rs.getString("TABLE_NAME") );
+                       break;
+                   } else {
+                       System.out.println("doesnt exist");
+                   }
                 }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
             }
         }
     }
@@ -46,6 +57,8 @@ in the database.
 
 
 Now lets create a new table in our data base:
+
+.. _create table:
 
 Create Table
 ------------
@@ -80,10 +93,10 @@ Create Table
                              "city nvarchar(255), " +
                              "country nvarchar(255), " +
                              "state nvarchar(2), " +
-                             "zip int, " +
-                             "internationalcode int, " +
-                             "areacode int, " +
-                             "phonenumber int, " +
+                             "zip nvarchar(10), " +
+                             "internationalcode nvarchar(4), " +
+                             "areacode nvarchar(4), " +
+                             "phonenumber nvarchar(15), " +
                              "PRIMARY KEY(symbol))";
                 stmt.executeUpdate(sql);
             } catch (SQLException ex) {
@@ -107,7 +120,8 @@ Single Row Insert
 ~~~~~~~~~~~~~~~~~
 
 The code below inserts data into the table we just created.  *This is just an example and the data being inserted
-is not accurate*
+is not accurate*  We using :ref:`Prepared Statements` to insert the data into the table.  Notice the ``?`` in the code,
+each ``?`` represents the data going into that that column.
 
 .. code-block:: java
     :linenos:
@@ -125,7 +139,17 @@ is not accurate*
                 String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA;" +
                                "integratedSecurity=true";
                 conn = DriverManager.getConnection(dbURL);
-                String sql = "INSERT INTO CompanyInfo Values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+                String sql = "INSERT INTO CompanyInfo ( symbol, " +
+                             "companyname, " +
+                             "address, " +
+                             "city, " +
+                             "country, " +
+                             "state, " +
+                             "zip, " +
+                             "internationalcode, " +
+                             "areacode, " +
+                             "phonenumber) " +
+                              "Values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
                 stmt = conn.prepareStatement(sql);
                 stmt.setString(1,"goog");
                 stmt.setString(2, "Google");
@@ -133,10 +157,10 @@ is not accurate*
                 stmt.setString(4,"GoogleVille");
                 stmt.setString(5,"USA");
                 stmt.setString(6, "CA");
-                stmt.setInt(7,95124);
-                stmt.setInt(8,01);
-                stmt.setInt(9,912);
-                stmt.setInt(10,6945634);
+                stmt.setString(7,95124);
+                stmt.setString(8,01);
+                stmt.setString(9,912);
+                stmt.setString(10,6945634);
                 stmt.executeUpdate();
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -180,7 +204,7 @@ For our example we will be using an *Excel* with a ``.csv`` extension.
 Here is an example:
 
 .. code-block::
-    :emphasize-lines: 15-16,22-23,25-26,28-30,32-34,36-38
+    :emphasize-lines: 15-16,22-23,25-26,28-31,33-35,37-39
     :linenos:
 
     package net.codejava.jdbc;
@@ -217,6 +241,7 @@ Here is an example:
                                     // FIELDTERMINATOR = Specifies the field terminator to be
                                     // used for character and Unicode character data files. We
                                     // are using a comma (,) as the field terminator.
+                                    // Keep in mind that (;) can be used as well.
                                     ", FIELDTERMINATOR = '','' " +
                                     // ROWTERMINATOR Specifies the field terminator to be used
                                     // for character and Unicode character data files. We are
