@@ -1,6 +1,8 @@
 
 .. _manage-connections:
 
+.. _Create Table Intro:
+
 How To Create A Table and Insert Data
 =====================================
 
