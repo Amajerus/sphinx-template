@@ -14,9 +14,12 @@ Where:
     - If you are using Windows authentication, using your Windows user account to log on to SQL Server.  This is used
       when the client and SQL Server are running on the same machine.   If you are wanting to use this option then we
       have to specify this by adding the **property** ``integratedSecurity=true`` to the URL.
-        - For example:  ``jdbc:sqlserver://localhost;integratedSecurity=true;``
+
+      - For example:  ``jdbc:sqlserver://localhost;integratedSecurity=true;``
+
     - If you are using SQL Server authentication then we will have to specify your SQL Server username and password.
-        - For example:  ``jdbc:sqlserver://localhost;user=SQLUserName;password=SQLPassword;``
+
+      - For example:  ``jdbc:sqlserver://localhost;user=SQLUserName;password=SQLPassword;``
 
 Examples
 --------

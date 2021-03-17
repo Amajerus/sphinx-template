@@ -200,8 +200,9 @@ For our example we will be using an *Excel* with a ``.csv`` extension.
    Starting with SQL Server 2017, a CSV file can be used as the data file for a bulk import of
    data into SQL Server. Note that the field terminator of a CSV file does not have to be a comma.
    To be usable as a data file for bulk import, a CSV file must comply with the following restrictions:
-          * Data fields never contain the field terminator.
-          * Either none or all of the values in a data field are enclosed in quotation marks ("").
+
+   * Data fields never contain the field terminator.
+   * Either none or all of the values in a data field are enclosed in quotation marks ("").
 
 Here is an example:
 
