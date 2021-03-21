@@ -72,7 +72,6 @@ Code
             String filepath = "Location of file";
 
             try {
-                ;
                 String dbURL = "jdbc:sqlserver://localhost;databaseName=GAFA;
                                 integratedSecurity=true";
                 conn = DriverManager.getConnection(dbURL);
