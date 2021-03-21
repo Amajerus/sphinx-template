@@ -1,3 +1,5 @@
+.. _Storing Binary Images:
+
 Storing Binary Images
 =====================
 
@@ -34,6 +36,10 @@ bytes. This is useful when reading data from a file, or received over the networ
 We are using prepared statements in this code as well. Click :ref:`Prepared Statements` to learn about prepared
 statements.
 
+.. _Blob:
+
+Blob
+----
 You will also notice that we are setting the variable inputstream as a ``Blob``.  A ``Blob`` is a **built-in type**
 that stores a ``Binary Large Object`` as a column value in a row of a database table. By default drivers implement
 Blob using an SQL locator(BLOB), which means that a Blob object contains a logical pointer to the SQL BLOB data
