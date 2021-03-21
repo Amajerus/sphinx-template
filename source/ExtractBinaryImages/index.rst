@@ -53,7 +53,7 @@ Code Example
 ------------
 
 .. code-block:: java
-    :emphasize-lines: 26-27
+    :emphasize-lines: 23-24
     :linenos:
 
     package net.codejava.jdbc;
