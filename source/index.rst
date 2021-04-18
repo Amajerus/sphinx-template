@@ -17,5 +17,7 @@ This will walk you through one way to query SQL Server with JAVA using IntellJ
    ErrorHandling/index
    StoringBinaryImages/index
    ExtractBinaryImages/index
+   Gradle/index
+   Servlets/index
 
 
