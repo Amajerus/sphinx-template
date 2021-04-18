@@ -94,7 +94,8 @@ basic servlet.
             public void init() {
             message = "Hello World!";
         }
-        public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        public void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws IOException {
             response.setContentType("text/html");
                 // Hello
             PrintWriter out = response.getWriter();
