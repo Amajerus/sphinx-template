@@ -183,4 +183,71 @@ display it in the servlet.
         }
     }
 
+Coding Java inside servlet code
+-------------------------------
+
+You can even include the java code in the servlet as shown in this example which extracts a `binary image`
+from **SQL Server** and displays it in the servlet.
+
+.. code-block:: java
+    :caption: Extracting Binary Image and displaying in a servlet
+    :emphasize-lines: 40
+    :linenos:
+
+    import javax.naming.Context;
+    import javax.naming.InitialContext;
+    import javax.naming.NamingException;
+    import javax.servlet.ServletException;
+    import javax.servlet.ServletOutputStream;
+    import javax.servlet.annotation.WebServlet;
+    import javax.servlet.http.HttpServlet;
+    import javax.servlet.http.HttpServletRequest;
+    import javax.servlet.http.HttpServletResponse;
+    import javax.sql.DataSource;
+    import java.io.IOException;
+    import java.io.InputStream;
+    import java.sql.*;
+
+    @WebServlet(name = "getb_imageservlet", value = "/getb_imageservlet")
+    public class GetB_ImageServlet extends HttpServlet{
+        private String message;
+        public void init() {
+            message = "Hello World!";
+        }
+        public void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws IOException, ServletException {
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            Connection conn = null;
+            ServletOutputStream out = response.getOutputStream();
+            Context initContext = null;
+            try {
+                initContext = new InitialContext();
+                Context envContext = (Context) initContext.lookup("java:/comp/env");
+                DataSource ds = (DataSource) envContext.lookup("jdbc/j2ss");
+                conn = ds.getConnection();
+                String sql =  "SELECT * " +
+                        "From dbo.Pics "+
+                        "Where PictureName = 'ISU' ";
+                stmt = conn.prepareStatement(sql);
+                rs = stmt.executeQuery();
+                while (rs.next()) {
+                    Blob blob = rs.getBlob("Data");
+                    // In this instance we want to change the content type to image/jpg
+                    response.setContentType("image/jpg");
+                    InputStream inputStream = blob.getBinaryStream();
+                    int bytesRead = (int) blob.length();
+                    byte[] buffer = new byte[8192];
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        out.write(buffer,0, bytesRead);
+                    }
+                    inputStream.close();
+                }
+            } catch (NamingException | SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        public void destroy() {
+        }
+    }
 
